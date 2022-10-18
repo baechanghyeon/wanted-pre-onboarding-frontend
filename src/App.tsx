@@ -1,18 +1,30 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import PrivateRoute from "./components/\bauth/PrivateRoute";
+import PublicRoute from "./components/\bauth/PublicRoute";
+import SignIn from "./page/SignIn";
+import SignUp from "./page/SignUp";
+import Todo from "./page/Todo";
 
 const App = () => {
+  const access = localStorage.getItem("token");
   return (
     <BrowserRouter>
-      {/* <BrowserRouter>
-      <GlobalStyle />
-      <Routes path="/">
-        <Route index element={<SignIn />} />
-        <Route path="signUp" element={<SignUp />} />
-        <Route path="todoList" element={<TodoList />} />
+      <GlobalStyled />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PublicRoute authenticated={access} component={<SignIn />} />
+          }
+        />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route
+          path="/todo"
+          element={<PrivateRoute authenticated={access} component={<Todo />} />}
+        />
       </Routes>
-    </BrowserRouter> */}
     </BrowserRouter>
   );
 };
