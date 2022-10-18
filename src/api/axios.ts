@@ -7,4 +7,13 @@ const API = axios.create({
   },
 });
 
+API.interceptors.response.use(
+  (response) => {
+    localStorage.setItem("token", response.data.access_token);
+    return response;
+  },
+  (err) => {
+    return err;
+  }
+);
 export default API;

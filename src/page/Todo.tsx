@@ -36,7 +36,7 @@ const Todo = () => {
             type="button"
             id="InsertBtn"
             value="추가"
-            onClick={AddBtnHandler}
+            // onClick={AddBtnHandler}
           />
         </TodoInsert>
         <TodoList>

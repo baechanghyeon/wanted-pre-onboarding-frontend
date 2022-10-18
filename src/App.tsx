@@ -8,22 +8,13 @@ import SignUp from "./page/SignUp";
 import Todo from "./page/Todo";
 
 const App = () => {
-  const access = localStorage.getItem("token");
   return (
     <BrowserRouter>
       <GlobalStyled />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PublicRoute authenticated={access} component={<SignIn />} />
-          }
-        />
+        <Route path="/" element={<PublicRoute component={<SignIn />} />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/todo"
-          element={<PrivateRoute authenticated={access} component={<Todo />} />}
-        />
+        <Route path="/todo" element={<PrivateRoute component={<Todo />} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -37,7 +37,7 @@ const SignUp = () => {
 
   return (
     <Container>
-      <SignUpForm>
+      <SignUpForm onSubmit={SubmitHandler}>
         <Input
           id="SignUpEmailInput"
           type="text"
@@ -56,10 +56,9 @@ const SignUp = () => {
         />
         <Button
           id="SignUpBtn"
-          type="button"
+          type="submit"
           value="회원가입"
           disabled={btnState}
-          onClick={SubmitHandler}
         />
       </SignUpForm>
     </Container>

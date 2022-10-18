@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -20,17 +20,17 @@ const SignIn = () => {
     setPasswordData(e.target.value);
   };
 
-  const SubmitHandler = async (e: MouseEvent<HTMLElement>) => {
+  const SubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       const result = await API.post("/auth/signin", {
         email: emailData,
         password: passwordData,
       });
-      localStorage.setItem("token", result.data.access_token);
-      alert("정상적으로 로그인 되었습니다.");
-      navigate("/todo");
+      if (result) {
+        alert("정상적으로 로그인 되었습니다.");
+        navigate("/todo");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -38,7 +38,7 @@ const SignIn = () => {
 
   return (
     <Container>
-      <LoginForm>
+      <LoginForm onSubmit={SubmitHandler}>
         <Input
           id="SignInEmailInput"
           type="text"
@@ -53,12 +53,7 @@ const SignIn = () => {
           value={passwordData}
           onChange={passwordInputHandler}
         />
-        <Button
-          type="button"
-          id="LoginBtn"
-          value="로그인"
-          onClick={SubmitHandler}
-        />
+        <Button type="submit" id="LoginBtn" value="로그인" />
       </LoginForm>
     </Container>
   );

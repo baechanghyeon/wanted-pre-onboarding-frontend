@@ -52,25 +52,25 @@ const TodoItem = ({ id, todo, isComplete }: IProps) => {
         type="button"
         id={`editCompleBtn_${id}`}
         value="수정완료"
-        onClick={editCompleteHandler}
+        // onClick={editCompleteHandler}
       />
       <Button
         type="button"
         id={`editCancelBtn_${id}`}
         value="수정취소"
-        onClick={editModeHandler}
+        // onClick={editModeHandler}
       />
       <Button
         type="button"
         id={`editBtn_${id}`}
         value="수정"
-        onClick={editModeHandler}
+        // onClick={editModeHandler}
       />
       <Button
         type="button"
         id={`deleteBtn_${id}`}
         value="삭제"
-        onClick={deleteHandler}
+        // onClick={deleteHandler}
       />
     </>
   );

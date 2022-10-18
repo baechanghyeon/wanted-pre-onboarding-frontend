@@ -5,7 +5,7 @@ interface IProps {
   id: string;
   value: string;
   disabled?: boolean;
-  onClick: MouseEventHandler<HTMLElement>;
+  onClick?: MouseEventHandler<HTMLElement>;
 }
 
 const Button = ({ ...rest }: IProps) => {
@@ -16,6 +16,6 @@ const Button = ({ ...rest }: IProps) => {
   );
 };
 
-Button.defaultProps = { disabled: false };
+Button.defaultProps = { disabled: false, onClick: () => void 0 };
 
 export default Button;
