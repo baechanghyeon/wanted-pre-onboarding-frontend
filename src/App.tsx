@@ -19,7 +19,7 @@ const App = () => {
             <PublicRoute authenticated={access} component={<SignIn />} />
           }
         />
-        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route
           path="/todo"
           element={<PrivateRoute authenticated={access} component={<Todo />} />}

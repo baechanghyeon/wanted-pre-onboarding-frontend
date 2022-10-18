@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
 
 const SignIn = () => {
   const [emailData, setEmailData] = useState("");
@@ -23,11 +24,12 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const result = await axios.post(
-        "https://pre-onboarding-selection-task.shop/auth/signin",
-        { email: emailData, password: passwordData }
-      );
+      const result = await API.post("/auth/signin", {
+        email: emailData,
+        password: passwordData,
+      });
       localStorage.setItem("token", result.data.access_token);
+      alert("정상적으로 로그인 되었습니다.");
       navigate("/todo");
     } catch (err) {
       console.log(err);
@@ -46,7 +48,7 @@ const SignIn = () => {
         />
         <Input
           id="SignInPasswordInput"
-          type="text"
+          type="password"
           label="비밀번호"
           value={passwordData}
           onChange={passwordInputHandler}

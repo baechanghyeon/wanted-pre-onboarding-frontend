@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, ChangeEvent } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
@@ -8,6 +10,8 @@ const SignUp = () => {
   const [emailData, setEmailData] = useState("");
   const [passwordData, setPasswordData] = useState("");
   const [btnState, setBtnState] = useState(false);
+
+  const navigate = useNavigate();
 
   const EmailInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailData(e.target.value);
@@ -20,10 +24,12 @@ const SignUp = () => {
   const SubmitHandler = async () => {
     // axios.config 설정 ( instance 설정 )
     try {
-      await axios.post(
-        "https://pre-onboarding-selection-task.shop/auth/signup",
-        { email: emailData, password: passwordData }
-      );
+      await API.post("/auth/signup", {
+        email: emailData,
+        password: passwordData,
+      });
+      alert("회원가입이 완료되었습니다.");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
