@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
-import Button from "../components/Button";
-import Input from "../components/Input";
+import Button from "../components/common/Button";
+import Input from "../components/common/Input";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api/axios";
+import ErrMsg from "../components/common/ErrMsg";
 
 const SignIn = () => {
   const [emailData, setEmailData] = useState("");
@@ -42,7 +43,7 @@ const SignIn = () => {
       }
     } catch (err) {
       // 이메일과 비밀번호를 확인해주세요
-      console.log(err);
+      ErrMsg(err, "이메일과 비밀번호를 다시한번 확인해주세요.");
     }
   };
 

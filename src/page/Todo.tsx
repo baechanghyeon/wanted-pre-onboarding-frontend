@@ -1,9 +1,10 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import styled from "styled-components";
 import API from "../api/axios";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import TodoItem from "../components/TodoItem";
+import Button from "../components/common/Button";
+import ErrMsg from "../components/common/ErrMsg";
+import Input from "../components/common/Input";
+import TodoItem from "../components/Todo/TodoItem";
 
 export interface ITodo {
   id: number;
@@ -27,7 +28,7 @@ const Todo = () => {
         });
         setDatas(result.data);
       } catch (err) {
-        console.log(err);
+        ErrMsg(err, "다시 한번 시도해주세요.");
       }
     };
     getData();
@@ -52,7 +53,7 @@ const Todo = () => {
       setInsertData("");
       alert("정상적으로 추가 되었습니다.");
     } catch (err) {
-      console.log(err);
+      ErrMsg(err, "다시 한번 시도해주세요.");
     }
   };
   return (

@@ -1,9 +1,10 @@
 import React, { Dispatch, useEffect, useState } from "react";
 import styled from "styled-components";
-import API from "../api/axios";
-import { ITodo } from "../page/Todo";
-import Button from "./Button";
-import Input from "./Input";
+import API from "../../api/axios";
+import { ITodo } from "../../page/Todo";
+import Button from "../common/Button";
+import ErrMsg from "../common/ErrMsg";
+import Input from "../common/Input";
 
 interface IProps {
   id: number;
@@ -41,7 +42,7 @@ const TodoItem = ({ id, todo, isCompleted, datas, setDatas }: IProps) => {
       const newTodo = datas.filter((data) => data.id !== id);
       setDatas(newTodo);
     } catch (err) {
-      console.log(err);
+      ErrMsg(err, "다시 한번 시도해주세요.");
     }
   };
 
@@ -66,7 +67,7 @@ const TodoItem = ({ id, todo, isCompleted, datas, setDatas }: IProps) => {
         setEditModeState(!editModeState);
       }
     } catch (err) {
-      console.log(err);
+      ErrMsg(err, "다시한번 시도해주세요.");
     }
   };
 

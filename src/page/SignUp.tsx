@@ -3,9 +3,13 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import { EmailInputValid, PasswordInputValid } from "../components/InputValid";
+import Button from "../components/common/Button";
+import Input from "../components/common/Input";
+import {
+  EmailInputValid,
+  PasswordInputValid,
+} from "../components/common/InputValid";
+import ErrMsg from "../components/common/ErrMsg";
 
 const SignUp = () => {
   const [emailData, setEmailData] = useState("");
@@ -31,7 +35,7 @@ const SignUp = () => {
       alert("회원가입이 완료되었습니다.");
       navigate("/");
     } catch (err) {
-      console.log(err);
+      ErrMsg(err, "이메일과 비밀번호를 확인해주세요.");
     }
   };
 
