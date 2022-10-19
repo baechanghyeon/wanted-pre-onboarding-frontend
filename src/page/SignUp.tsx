@@ -1,25 +1,26 @@
 import axios from "axios";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { EmailInputValid, PasswordInputValid } from "../components/InputValid";
 
 const SignUp = () => {
   const [emailData, setEmailData] = useState("");
   const [passwordData, setPasswordData] = useState("");
-  const [btnState, setBtnState] = useState(false);
+  const [btnState, setBtnState] = useState(true);
 
   const navigate = useNavigate();
 
-  const EmailInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmailData(e.target.value);
-  };
-
-  const PasswordInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setPasswordData(e.target.value);
-  };
+  useEffect(() => {
+    if (EmailInputValid(emailData) && PasswordInputValid(passwordData)) {
+      setBtnState(false);
+    } else {
+      setBtnState(true);
+    }
+  }, [emailData, passwordData]);
 
   const SubmitHandler = async () => {
     try {
@@ -43,7 +44,7 @@ const SignUp = () => {
           value={emailData}
           placeholder="이메일을 입력하세요."
           label="이메일"
-          onChange={EmailInputHandler}
+          onChange={(e) => setEmailData(e.target.value)}
         />
         <Input
           id="SignUpPasswordInput"
@@ -51,7 +52,7 @@ const SignUp = () => {
           value={passwordData}
           placeholder="비밀번호를 입력하세요"
           label="비밀번호"
-          onChange={PasswordInputHandler}
+          onChange={(e) => setPasswordData(e.target.value)}
         />
         <Button
           id="SignUpBtn"
