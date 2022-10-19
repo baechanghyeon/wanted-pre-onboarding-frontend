@@ -1,4 +1,11 @@
+## 🌎 배포 URL
+
+```
+https://baechanghyeon.github.io/wanted-pre-onboarding-frontend/
+```
+
 ## 📂 파일 트리
+
 ```
 src
  ┣ api
@@ -25,7 +32,8 @@ src
 ```
 
 ## ⚙️ 프로젝트 실행 방법
+
 ```
   npm install
   npm start #npm run start
-  ```
+```
