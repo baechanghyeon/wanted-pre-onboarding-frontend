@@ -9,7 +9,7 @@ import Todo from "./page/Todo";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <GlobalStyled />
       <Routes>
         <Route path="/" element={<PublicRoute component={<SignIn />} />} />
