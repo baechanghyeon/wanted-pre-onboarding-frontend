@@ -1,5 +1,5 @@
-import React, { Dispatch, useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { Dispatch, useEffect, useState, Key } from "react";
+import styled, { css } from "styled-components";
 import API from "../../api/axios";
 import { ITodo } from "../../page/Todo";
 import Button from "../common/Button";
@@ -25,7 +25,6 @@ const TodoItem = ({ id, todo, isCompleted, datas, setDatas }: IProps) => {
   };
 
   const editDeleteHandler = () => {
-    // 수정 취소 시 이전 값으로 초기화
     setTodoContent(todo);
     setCheckState(isCompleted);
     setEditModeState(!editModeState);
@@ -73,27 +72,27 @@ const TodoItem = ({ id, todo, isCompleted, datas, setDatas }: IProps) => {
 
   return (
     <>
-      <li key={`Todo_key_${id}`} id={`Todo_${id}`}>
+      <CustomLi>
         {editModeState ? (
           <>
-            <input
+            <CheckBox
               type="checkbox"
               checked={checkState}
               onChange={() => setCheckState(!checkState)}
             />
-            <Input
+            <CustomInput
               id={`editInput_${id}`}
               type="text"
               value={todoContent}
               onChange={(e) => setTodoContent(e.target.value)}
             />
-            <Button
+            <CustomBtn
               type="button"
               id={`editCompleBtn_${id}`}
               value="수정완료"
               onClick={editCompleteHandler}
             />
-            <Button
+            <CustomBtn
               type="button"
               id={`editCancelBtn_${id}`}
               value="수정취소"
@@ -101,25 +100,66 @@ const TodoItem = ({ id, todo, isCompleted, datas, setDatas }: IProps) => {
             />
           </>
         ) : (
-          <>
-            <span>{todoContent}</span>
-            <Button
+          <EditContainer>
+            <Span flag={checkState}>{todoContent}</Span>
+            <CustomBtn
               type="button"
               id={`editBtn_${id}`}
               value="수정"
               onClick={editModeHandler}
             />
-            <Button
+            <CustomBtn
               type="button"
               id={`deleteBtn_${id}`}
               value="삭제"
               onClick={deleteHandler}
             />
-          </>
+          </EditContainer>
         )}
-      </li>
+      </CustomLi>
     </>
   );
 };
 
 export default TodoItem;
+
+const CustomLi = styled.li`
+  display: flex;
+  flex-direction: raw;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid black;
+`;
+
+const CustomInput = styled(Input)`
+  width: 170px;
+  margin-left: 10px;
+`;
+
+const CustomBtn = styled(Button)`
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 60px;
+`;
+
+const EditContainer = styled.div`
+  width: 100%;
+`;
+
+const Span = styled.span<{ flag: boolean }>`
+  font-size: 15px;
+  padding-left: 20px;
+  padding-right: 10px;
+  margin: 3px 0 3px 0;
+  ${({ flag }) =>
+    flag
+      ? css`
+          color: green;
+          text-decoration: line-through;
+        `
+      : css``}
+`;
+
+const CheckBox = styled.input`
+  margin-left: 5px;
+`;

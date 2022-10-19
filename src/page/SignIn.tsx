@@ -6,6 +6,7 @@ import Input from "../components/common/Input";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api/axios";
 import ErrMsg from "../components/common/ErrMsg";
+import PageTitle from "../components/common/PageTitle";
 
 const SignIn = () => {
   const [emailData, setEmailData] = useState("");
@@ -23,7 +24,6 @@ const SignIn = () => {
 
   const passwordInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordData(e.target.value);
-    // password Valid alert Message
     if (e.target.value === "") {
       alert("비밀번호를 입력해주세요.");
     }
@@ -42,7 +42,6 @@ const SignIn = () => {
         navigate("/todo");
       }
     } catch (err) {
-      // 이메일과 비밀번호를 확인해주세요
       ErrMsg(err, "이메일과 비밀번호를 다시한번 확인해주세요.");
     }
   };
@@ -50,6 +49,7 @@ const SignIn = () => {
   return (
     <Container>
       <LoginForm onSubmit={SubmitHandler}>
+        <PageTitle title="로그인" />
         <Input
           id="SignInEmailInput"
           type="text"
@@ -64,17 +64,41 @@ const SignIn = () => {
           value={passwordData}
           onChange={passwordInputHandler}
         />
-        <Button type="submit" id="LoginBtn" value="로그인" />
+        <CButton type="submit" id="LoginBtn" value="로그인" />
+        <Link to="/signup">
+          <SignUpBtn>회원가입 하셨나요?</SignUpBtn>
+        </Link>
       </LoginForm>
-      <Link to="/signup">
-        <span>회원가입 하셨나요?</span>
-      </Link>
     </Container>
   );
 };
 
 export default SignIn;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 100vh;
+`;
 
-const LoginForm = styled.form``;
+const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 250px;
+  padding: 10px;
+  border: 0.5px solid black;
+  text-align: left;
+`;
+
+const SignUpBtn = styled.span`
+  font-size: 15px;
+  margin-top: 30px;
+  padding: 8px;
+`;
+
+const CButton = styled(Button)`
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;

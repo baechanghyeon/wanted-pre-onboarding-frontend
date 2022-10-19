@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler } from "react";
+import styled from "styled-components";
 
 interface InputProps {
   id: string;
@@ -11,10 +12,10 @@ interface InputProps {
 
 const Input = ({ label, ...rest }: InputProps) => {
   return (
-    <>
+    <Containter>
       {label}
-      <input {...rest} />
-    </>
+      <CustomInput {...rest} />
+    </Containter>
   );
 };
 
@@ -25,3 +26,14 @@ Input.defaultProps = {
 };
 
 export default Input;
+
+const Containter = styled.div`
+  margin: 3px;
+`;
+
+const CustomInput = styled.input`
+  height: 25px;
+  width: 100%;
+  font-size: 15px;
+  margin: 3px 0 3px 0;
+`;

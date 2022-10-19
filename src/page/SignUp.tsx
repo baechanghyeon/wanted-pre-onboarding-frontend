@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
@@ -10,6 +10,8 @@ import {
   PasswordInputValid,
 } from "../components/common/InputValid";
 import ErrMsg from "../components/common/ErrMsg";
+import Title from "../components/common/PageTitle";
+import PageTitle from "../components/common/PageTitle";
 
 const SignUp = () => {
   const [emailData, setEmailData] = useState("");
@@ -26,7 +28,8 @@ const SignUp = () => {
     }
   }, [emailData, passwordData]);
 
-  const SubmitHandler = async () => {
+  const SubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       await API.post("/auth/signup", {
         email: emailData,
@@ -42,11 +45,12 @@ const SignUp = () => {
   return (
     <Container>
       <SignUpForm onSubmit={SubmitHandler}>
+        <PageTitle title="회원가입" />
         <Input
           id="SignUpEmailInput"
           type="text"
           value={emailData}
-          placeholder="이메일을 입력하세요."
+          placeholder=" 이메일을 입력하세요."
           label="이메일"
           onChange={(e) => setEmailData(e.target.value)}
         />
@@ -54,7 +58,7 @@ const SignUp = () => {
           id="SignUpPasswordInput"
           type="password"
           value={passwordData}
-          placeholder="비밀번호를 입력하세요"
+          placeholder=" 비밀번호를 입력하세요"
           label="비밀번호"
           onChange={(e) => setPasswordData(e.target.value)}
         />
@@ -64,6 +68,12 @@ const SignUp = () => {
           value="회원가입"
           disabled={btnState}
         />
+        <Button
+          id="BackBtn"
+          type="button"
+          value="되돌아가기"
+          onClick={() => navigate("/")}
+        />
       </SignUpForm>
     </Container>
   );
@@ -71,6 +81,19 @@ const SignUp = () => {
 
 export default SignUp;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 100vh;
+`;
 
-const SignUpForm = styled.form``;
+const SignUpForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 230px;
+  padding: 10px;
+  border: 0.5px solid black;
+  text-align: left;
+`;
