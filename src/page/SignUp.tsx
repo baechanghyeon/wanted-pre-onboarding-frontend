@@ -22,7 +22,6 @@ const SignUp = () => {
   };
 
   const SubmitHandler = async () => {
-    // axios.config 설정 ( instance 설정 )
     try {
       await API.post("/auth/signup", {
         email: emailData,

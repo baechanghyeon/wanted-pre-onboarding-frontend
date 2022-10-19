@@ -23,11 +23,12 @@ const SignIn = () => {
   const SubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await API.post("/auth/signin", {
+      const result = await API.post("auth/signin", {
         email: emailData,
         password: passwordData,
       });
       if (result) {
+        localStorage.setItem("token", result.data.access_token);
         alert("정상적으로 로그인 되었습니다.");
         navigate("/todo");
       }
